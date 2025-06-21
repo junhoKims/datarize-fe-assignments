@@ -1,5 +1,4 @@
 import type { SortBy } from '@/screens/home/types'
-import { useQueryClient } from '@tanstack/react-query'
 import { useRef } from 'react'
 
 interface CustomersFilterProps {
@@ -7,12 +6,10 @@ interface CustomersFilterProps {
 }
 
 export const useCustomersFilter = ({ onClickSearch }: CustomersFilterProps) => {
-  const queryClient = useQueryClient()
   const nameRef = useRef<HTMLInputElement>(null)
   const sortByRef = useRef<HTMLSelectElement>(null)
 
   const handleClickSearch = () => {
-    queryClient.resetQueries({ queryKey: ['dashboard', 'customers'] })
     const name = nameRef.current?.value || ''
     const sortBy = sortByRef.current?.value as SortBy
     onClickSearch(name, sortBy)

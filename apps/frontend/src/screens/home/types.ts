@@ -16,3 +16,18 @@ export type Customer = {
  * 고객 목록 정렬 타입
  */
 export type SortBy = 'asc' | 'desc' | undefined
+
+/**
+ * 구매빈도 차트 타입
+ */
+export type PurchaseFrequencyChartData = {
+  /** 구매빈도 범위 */
+  range: string
+  /** 구매빈도 개수 */
+  count: number
+}
+
+export type DateRange = {
+  from: Date | null
+  to: Date | null
+}
