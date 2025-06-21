@@ -1,6 +1,6 @@
+import { Error } from '@/components/Error'
+import { Loading } from '@/components/Loading'
 import { PageLayout } from '@/components/PageLayout'
-import { Error } from '@/screens/customer/components/Error'
-import { Loading } from '@/screens/customer/components/Loading'
 import { ParamGuard } from '@/screens/customer/components/ParamGuard'
 import { Purchases } from '@/screens/customer/Purchases'
 import { QueryErrorResetBoundary } from '@tanstack/react-query'

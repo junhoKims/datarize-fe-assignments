@@ -1,3 +1,4 @@
+import { Button } from '@/components/Button'
 import { useCustomersFilter } from '@/screens/home/Customers/hooks/useCustomersFilter'
 import type { SortBy } from '@/screens/home/types'
 
@@ -6,10 +7,10 @@ interface CustomerFilterProps {
 }
 
 export const CustomerFilter = (props: CustomerFilterProps) => {
-  const { nameRef, sortByRef, onKeyDown, onClickSearch, onClickXButton } = useCustomersFilter(props)
+  const { nameRef, sortByRef, onKeyDown, onClickSearch, onClickXButton, onClickClearButton } = useCustomersFilter(props)
 
   return (
-    <div className="flex space-x-4">
+    <div className="flex space-x-3">
       <div className="flex items-center border border-gray-200 rounded flex-1">
         <input
           ref={nameRef}
@@ -18,11 +19,11 @@ export const CustomerFilter = (props: CustomerFilterProps) => {
           className="p-2 flex-1"
           onKeyDown={onKeyDown}
         />
-        <button type="button" className="text-gray-500 hover:text-gray-700 p-2 cursor-pointer" onClick={onClickXButton}>
+        <Button variant="tertiary" onClick={onClickXButton}>
           <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <path d="M10 8.586l-4-4a1 1 0 00-1.414 1.414l4 4-4 4a1 1 0 001.414 1.414l4-4 4 4a1 1 0 001.414-1.414l-4-4 4-4a1 1 0 00-1.414-1.414l-4 4z" />
           </svg>
-        </button>
+        </Button>
       </div>
       <div className="relative">
         <select ref={sortByRef} className="border border-gray-200 p-2 rounded appearance-none pr-8">
@@ -36,9 +37,10 @@ export const CustomerFilter = (props: CustomerFilterProps) => {
           </svg>
         </div>
       </div>
-      <button type="button" className="bg-blue-500 text-white p-2 rounded px-3 cursor-pointer" onClick={onClickSearch}>
-        검색
-      </button>
+      <Button variant="secondary" onClick={onClickClearButton}>
+        초기화
+      </Button>
+      <Button onClick={onClickSearch}>검색</Button>
     </div>
   )
 }

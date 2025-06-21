@@ -15,7 +15,7 @@ export type Customer = {
 /**
  * 고객 목록 정렬 타입
  */
-export type SortBy = 'asc' | 'desc' | undefined
+export type SortBy = 'asc' | 'desc' | ''
 
 /**
  * 구매빈도 차트 타입

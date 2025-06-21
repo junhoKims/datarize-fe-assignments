@@ -11,14 +11,26 @@ export const useCustomersFilter = ({ onClickSearch }: CustomersFilterProps) => {
 
   const handleClickSearch = () => {
     const name = nameRef.current?.value || ''
-    const sortBy = sortByRef.current?.value as SortBy
+    const sortBy = (sortByRef.current?.value || '') as SortBy
     onClickSearch(name, sortBy)
   }
 
-  const handleClickXButton = () => {
+  const onClickXButton = () => {
     if (nameRef.current) {
       nameRef.current.value = ''
     }
+  }
+
+  const onClickClearButton = () => {
+    if (nameRef.current) {
+      nameRef.current.value = ''
+    }
+
+    if (sortByRef.current) {
+      sortByRef.current.value = ''
+    }
+
+    handleClickSearch()
   }
 
   const onKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
@@ -35,7 +47,8 @@ export const useCustomersFilter = ({ onClickSearch }: CustomersFilterProps) => {
     nameRef,
     sortByRef,
     onKeyDown,
+    onClickClearButton,
+    onClickXButton,
     onClickSearch: handleClickSearch,
-    onClickXButton: handleClickXButton,
   }
 }

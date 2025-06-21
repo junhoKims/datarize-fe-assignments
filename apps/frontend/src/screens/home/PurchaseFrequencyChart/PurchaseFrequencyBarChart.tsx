@@ -1,31 +1,34 @@
-import { FetcherProps2 } from '@/components/QueryFetcher2'
+import { Empty } from '@/components/Empty'
+import { Error } from '@/components/Error'
+import { Loading } from '@/components/Loading'
+import { QueryFetcher } from '@/components/QueryFetcher'
+import { usePurchaseFrequencyBarChart } from '@/screens/home/PurchaseFrequencyChart/hooks/usePurchaseFrequencyBarChart'
 import type { DateRange } from '@/screens/home/types'
 import { Bar } from 'react-chartjs-2'
-import { usePurchaseFrequencyBarChart } from './hooks/usePurchaseFrequencyBarChart'
 
 interface PurchaseFrequencyBarChartProps {
   dateRange: DateRange
 }
 
 export const PurchaseFrequencyBarChart = (props: PurchaseFrequencyBarChartProps) => {
-  const { data, isPending, isError, isSuccess, chartRef, createChartData, createChartOptions } =
+  const { data, isLoading, isError, isSuccess, chartRef, createChartData, createChartOptions } =
     usePurchaseFrequencyBarChart(props)
 
   return (
-    <FetcherProps2
+    <QueryFetcher
       items={data}
-      isLoading={isPending}
+      isLoading={isLoading}
       isError={isError}
       isSuccess={isSuccess}
-      loadingUI={<div>Loading...</div>}
-      errorUI={<div>Error</div>}
-      emptyUI={<div>Empty</div>}
+      loadingFallback={<Loading />}
+      errorFallback={<Error />}
+      emptyFallback={<Empty name="구매 빈도" description="날짜를 변경해보세요" />}
     >
       {(items) => {
         const chartData = createChartData(items)
         const options = createChartOptions(items)
         return <Bar ref={chartRef} data={chartData} options={options} />
       }}
-    </FetcherProps2>
+    </QueryFetcher>
   )
 }

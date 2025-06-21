@@ -1,4 +1,5 @@
 import { getPurchaseFrequency } from '@/screens/home/apis/getPurchaseFrequency'
+import { DEFAULT_FROM, DEFAULT_TO } from '@/screens/home/PurchaseFrequencyChart/hooks/usePurchaseFrequencyChart'
 import type { DateRange, PurchaseFrequencyChartData } from '@/screens/home/types'
 import { useQuery } from '@tanstack/react-query'
 import { Chart, ChartData, ChartOptions, registerables } from 'chart.js'
@@ -12,9 +13,9 @@ interface UsePurchaseFrequencyBarChartProps {
 }
 
 export const usePurchaseFrequencyBarChart = ({ dateRange }: UsePurchaseFrequencyBarChartProps) => {
-  const { data, isPending, isError, isSuccess } = useQuery({
+  const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ['purchase-frequency', dateRange],
-    queryFn: () => getPurchaseFrequency(dateRange),
+    queryFn: () => getPurchaseFrequency(convertDateRangeToDefaulted(dateRange)),
   })
 
   const chartRef = useRef<Chart<'bar'>>(null)
@@ -30,6 +31,7 @@ export const usePurchaseFrequencyBarChart = ({ dateRange }: UsePurchaseFrequency
       ],
     }
   }
+
   const createChartOptions = (data: PurchaseFrequencyChartData[]): ChartOptions<'bar'> => {
     return {
       responsive: true,
@@ -39,7 +41,7 @@ export const usePurchaseFrequencyBarChart = ({ dateRange }: UsePurchaseFrequency
           position: 'top',
         },
       },
-
+      backgroundColor: '#f7ff9b',
       animation: {
         easing: 'easeInOutQuad',
         duration: CHART_RENDER_DURATION,
@@ -69,11 +71,16 @@ export const usePurchaseFrequencyBarChart = ({ dateRange }: UsePurchaseFrequency
 
   return {
     data,
-    isPending,
+    isLoading,
     isError,
     isSuccess,
     chartRef,
     createChartData,
     createChartOptions,
   }
+}
+
+const convertDateRangeToDefaulted = (dateRange: DateRange) => {
+  const { from, to } = dateRange
+  return { from: from ?? DEFAULT_FROM, to: to ?? DEFAULT_TO }
 }

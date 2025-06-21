@@ -1,10 +1,12 @@
 import type { FallbackProps } from 'react-error-boundary'
 
-export const Error = ({ error, resetErrorBoundary }: FallbackProps) => {
+interface ErrorProps extends Partial<FallbackProps> {}
+
+export const Error = ({ error, resetErrorBoundary }: ErrorProps) => {
   return (
-    <div className="flex flex-1 items-center justify-center pt-16">
+    <div className="flex flex-1 items-center justify-center p-6">
       <div className="space-y-2 text-center">
-        <p className="text-xl font-semibold text-gray-800">문제가 발생했습니다</p>
+        <p className="text-md font-semibold text-gray-800">문제가 발생했습니다</p>
         {error && <p className="text-sm text-gray-500">{error?.message}</p>}
         {resetErrorBoundary && (
           <button

@@ -1,6 +1,9 @@
 interface FormatTextProps extends React.ComponentPropsWithoutRef<'span'> {
+  /** 포맷하려는 타입 */
   type: 'price' | 'deliveryPrice' | 'count'
+  /** 선행 문자 */
   prefix?: string
+  /** 후행 문자 */
   suffix?: string
 }
 

@@ -1,3 +1,4 @@
+import { Button } from '@/components/Button'
 import type { DateRange } from '@/screens/home/types'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -26,23 +27,13 @@ export const PurchaseFrequencyFilter = ({
   }
 
   return (
-    <div className="flex space-x-4">
+    <div className="flex space-x-3">
       <FilterDatePicker selected={from} onChange={onChangeFrom} />
       <FilterDatePicker selected={to} onChange={onChangeTo} />
-      <button
-        type="button"
-        className="bg-white border border-blue-500 text-blue-500  p-2 rounded px-3 cursor-pointer"
-        onClick={onClickClearButton}
-      >
+      <Button variant="secondary" onClick={onClickClearButton}>
         초기화
-      </button>
-      <button
-        type="button"
-        className="bg-blue-500 text-white p-2 rounded px-3 cursor-pointer"
-        onClick={handleClickSearch}
-      >
-        검색
-      </button>
+      </Button>
+      <Button onClick={handleClickSearch}>검색</Button>
     </div>
   )
 }
@@ -58,12 +49,13 @@ const FilterDatePicker = ({ selected, onChange }: FilterDatePickerProps) => {
       <DatePicker
         selected={selected}
         onChange={onChange}
+        placeholderText="날짜를 선택해주세요"
         wrapperClassName="w-full h-10"
         className="w-full h-10 p-2"
         minDate={new Date(DEFAULT_FROM)}
         maxDate={new Date(DEFAULT_TO)}
         dateFormat="yyyy-MM-dd"
-        locale="ko"
+        isClearable
       />
     </div>
   )

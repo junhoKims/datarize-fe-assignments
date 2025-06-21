@@ -1,33 +1,38 @@
 interface QueryFetcherProps<T> {
-  children: React.ReactNode
   isLoading: boolean
-  loader: React.ReactNode
   isError: boolean
-  error: React.ReactNode
   isSuccess: boolean
+  loadingFallback: React.ReactNode
+  errorFallback: React.ReactNode
+  emptyFallback: React.ReactNode
   items: T[] | undefined
+  children: (data: Required<T>[]) => React.ReactNode
 }
 
+/**
+ * Query API를 받아 로딩, 에러, 빈데이터에 대한 선언적 처리를 구현하는 UI
+ */
 export const QueryFetcher = <T,>({
-  children,
   isLoading,
-  loader,
   isError,
-  error,
   isSuccess,
+  loadingFallback,
+  errorFallback,
+  emptyFallback,
   items,
+  children,
 }: QueryFetcherProps<T>) => {
   if (isLoading) {
-    return loader
+    return loadingFallback
   }
 
   if (isError) {
-    return error
+    return errorFallback
   }
 
   if (isSuccess && items && items.length === 0) {
-    return <div>slefnesfln</div>
+    return emptyFallback
   }
 
-  return <>{children}</>
+  return children(items as Required<T>[])
 }

@@ -1,24 +1,36 @@
+import { fetchWithTimeout } from '@/libs/fetchWithTimeout'
 import type { DateRange, PurchaseFrequencyChartData } from '@/screens/home/types'
 import qs from 'qs'
 
-type GetPurchaseFrequencyRequest = DateRange
+type NonNullableDateRange<T> = {
+  [K in keyof T]: NonNullable<T[K]>
+}
+
+type GetPurchaseFrequencyRequest = NonNullableDateRange<DateRange>
 
 export const getPurchaseFrequency = async (
   params?: GetPurchaseFrequencyRequest,
 ): Promise<PurchaseFrequencyChartData[]> => {
-  const converted = { from: params?.from?.toISOString(), to: params?.to?.toISOString() }
-  const queryString = qs.stringify(converted, { addQueryPrefix: true, skipNulls: true })
+  const controller = new AbortController()
+  const signal = controller.signal
 
-  const res = await fetch(`/api/purchase-frequency${queryString}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
+  const fetchPromise = (async () => {
+    const queryString = qs.stringify(params, { addQueryPrefix: true, skipNulls: true })
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch purchase frequency')
-  }
+    const res = await fetch(`/api/purchase-frequency${queryString}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      signal,
+    })
 
-  return res.json()
+    if (!res.ok) {
+      throw new Error('Failed to fetch purchase frequency')
+    }
+
+    return res.json()
+  })()
+
+  return fetchWithTimeout(fetchPromise, controller)
 }

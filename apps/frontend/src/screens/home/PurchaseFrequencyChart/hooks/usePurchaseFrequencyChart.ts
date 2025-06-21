@@ -28,14 +28,11 @@ export const usePurchaseFrequencyChart = () => {
   const onClickSearch = (dateRange: DateRange) => {
     const { from, to } = dateRange
 
-    if ((from && to && from > to) || (to && from && to < from)) {
-      alert('날짜 범위가 올바르지 않습니다')
-      return
-    }
-
-    if (from === null || to === null) {
-      alert('날짜 포맷이 잘못되었습니다')
-      return
+    if (from && to) {
+      if ((from && to && from > to) || (to && from && to < from)) {
+        alert('날짜 범위가 올바르지 않습니다')
+        return
+      }
     }
 
     setDateRange(dateRange)

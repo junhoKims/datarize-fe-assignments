@@ -2,9 +2,6 @@ import { Section } from '@/components/Section'
 import { PurchaseFrequencyBarChart } from '@/screens/home/PurchaseFrequencyChart/PurchaseFrequencyBarChart'
 import { PurchaseFrequencyFilter } from '@/screens/home/PurchaseFrequencyChart/PurchaseFrequencyFilter'
 import { usePurchaseFrequencyChart } from '@/screens/home/PurchaseFrequencyChart/hooks/usePurchaseFrequencyChart'
-import 'react-datepicker/dist/react-datepicker.css'
-
-// #F6FF91
 
 export const PurchaseFrequencyChart = () => {
   const { dateRange, from, to, onChangeFrom, onChangeTo, onClickClearButton, onClickSearch } =
