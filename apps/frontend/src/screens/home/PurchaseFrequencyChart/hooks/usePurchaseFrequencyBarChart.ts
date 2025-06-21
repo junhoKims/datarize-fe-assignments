@@ -80,6 +80,9 @@ export const usePurchaseFrequencyBarChart = ({ dateRange }: UsePurchaseFrequency
   }
 }
 
+/**
+ * from 또는 to가 null인 경우, 기본날짜 문자열로 리턴
+ */
 const convertDateRangeToDefaulted = (dateRange: DateRange) => {
   const { from, to } = dateRange
   return { from: from ?? DEFAULT_FROM, to: to ?? DEFAULT_TO }

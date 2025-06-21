@@ -4,6 +4,11 @@ interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   variant?: 'primary' | 'secondary' | 'tertiary'
 }
 
+/**
+ * 공용 Button UI
+ *
+ * `variant` props를 통해 버튼 스타일 설정
+ */
 export const Button = ({ variant = 'primary', className, children, ...props }: ButtonProps) => {
   return (
     <button type="button" className={buttonVariants({ variant, className })} {...props}>

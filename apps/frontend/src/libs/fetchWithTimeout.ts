@@ -9,7 +9,9 @@ const timeoutPromise = () => {
 }
 
 /**
- * timeout 추가한 fetch 함수
+ * timeout이 포함된 fetch 함수
+ *
+ * timeout 발생 시, api는 캔슬된다.
  */
 export const fetchWithTimeout = async <T>(promise: Promise<T>, controller: AbortController): Promise<T> => {
   try {

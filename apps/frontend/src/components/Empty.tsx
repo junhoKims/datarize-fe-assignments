@@ -3,6 +3,9 @@ interface EmptyProps {
   description?: string
 }
 
+/**
+ * 데이터가 비었을 시 노출하는 UI
+ */
 export const Empty = ({ name, description }: EmptyProps) => {
   return (
     <div className="flex flex-1 items-center justify-center p-6">

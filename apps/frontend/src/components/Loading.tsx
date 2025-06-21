@@ -1,3 +1,6 @@
+/**
+ * Loading UI (스피너)
+ */
 export const Loading = () => {
   return (
     <div className="flex justify-center items-center p-3 w-full h-24">

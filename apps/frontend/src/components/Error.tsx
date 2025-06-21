@@ -2,6 +2,9 @@ import type { FallbackProps } from 'react-error-boundary'
 
 interface ErrorProps extends Partial<FallbackProps> {}
 
+/**
+ * fetch Error 발생 시 노출하는 Error UI
+ */
 export const Error = ({ error, resetErrorBoundary }: ErrorProps) => {
   return (
     <div className="flex flex-1 items-center justify-center p-6">
