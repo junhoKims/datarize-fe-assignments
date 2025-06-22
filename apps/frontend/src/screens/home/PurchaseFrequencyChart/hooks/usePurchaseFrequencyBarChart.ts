@@ -1,5 +1,4 @@
 import { getPurchaseFrequency } from '@/screens/home/apis/getPurchaseFrequency'
-import { DEFAULT_FROM, DEFAULT_TO } from '@/screens/home/PurchaseFrequencyChart/hooks/usePurchaseFrequencyChart'
 import type { DateRange, PurchaseFrequencyChartData } from '@/screens/home/types'
 import { useQuery } from '@tanstack/react-query'
 import { Chart, ChartData, ChartOptions, registerables } from 'chart.js'
@@ -80,10 +79,19 @@ export const usePurchaseFrequencyBarChart = ({ dateRange }: UsePurchaseFrequency
   }
 }
 
-/**
- * from 또는 to가 null인 경우, 기본날짜 문자열로 리턴
- */
 const convertDateRangeToDefaulted = (dateRange: DateRange) => {
   const { from, to } = dateRange
-  return { from: from ?? DEFAULT_FROM, to: to ?? DEFAULT_TO }
+
+  const isFromMissing = !from && to
+  const isToMissing = from && !to
+
+  if (isFromMissing) {
+    return { from: to, to }
+  }
+
+  if (isToMissing) {
+    return { from, to: from }
+  }
+
+  return { from: from!, to: to! }
 }

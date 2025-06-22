@@ -28,10 +28,17 @@ export const usePurchaseFrequencyChart = () => {
   const onClickSearch = (dateRange: DateRange) => {
     const { from, to } = dateRange
 
-    /**
-     * 시작날짜가 종료날짜보다 크거나, 반대인 경우, alert 노출 후 종료
-     */
+    if (!from && !to) {
+      alert('날짜를 하나 이상 선택해주세요')
+      return
+    }
+
     if (from && to) {
+      if (isNaN(from.getTime()) || isNaN(to.getTime())) {
+        alert('날짜 포맷이 잘못되었습니다')
+        return
+      }
+
       if ((from && to && from > to) || (to && from && to < from)) {
         alert('날짜 범위가 올바르지 않습니다')
         return

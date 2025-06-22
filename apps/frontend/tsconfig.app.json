@@ -28,7 +28,13 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "types": [
+      "node",
+      "react",
+      "react-dom",
+      "vitest/globals"
+    ]
   },
   "include": [
     "src"

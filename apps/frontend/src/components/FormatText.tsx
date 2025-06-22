@@ -1,6 +1,6 @@
 interface FormatTextProps extends React.ComponentPropsWithoutRef<'span'> {
   /** 포맷하려는 타입 */
-  type: 'price' | 'deliveryPrice' | 'count'
+  type: 'price' | 'count'
   /** 선행 문자 */
   prefix?: string
   /** 후행 문자 */
@@ -14,10 +14,9 @@ interface FormatTextProps extends React.ComponentPropsWithoutRef<'span'> {
  *
  * @example
  * <FormatText type="price" prefix="₩" suffix="원">1000</FormatText> // 1,000원
- * <FormatText type="deliveryPrice" prefix="₩" suffix="원">0</FormatText> // 무료
  */
 export const FormatText = ({ type, prefix, suffix, className, children, ...props }: FormatTextProps) => {
-  if (typeof children !== 'number') {
+  if (typeof Number(children) !== 'number') {
     throw new Error('children must be a number')
   }
 
@@ -31,23 +30,6 @@ export const FormatText = ({ type, prefix, suffix, className, children, ...props
     )
   }
 
-  if (type === 'deliveryPrice') {
-    if (Number(children) === 0) {
-      return (
-        <span className={className} {...props}>
-          무료
-        </span>
-      )
-    }
-
-    return (
-      <span className={className} {...props}>
-        {prefix}
-        {Number(children).toLocaleString()}
-        {suffix}
-      </span>
-    )
-  }
   return (
     <span className={className} {...props}>
       {prefix}
